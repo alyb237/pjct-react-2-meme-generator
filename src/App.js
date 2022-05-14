@@ -5,10 +5,10 @@ import React, { useState } from 'react';
 // create useState variables to change the top and bottom text and template
 
 // generate button does not generate meme
-// download button works
 // entering doge and pressing enter does not work
 
 export function App() {
+  // displays first image on site and passes the link to the useState
   const url = 'https://api.memegen.link/images/aag.png';
 
   const [memeUrl, setMemeUrl] = useState(url);
@@ -19,16 +19,25 @@ export function App() {
   const download = `https://api.memegen.link/images/${template}/${top}/${bottom}.png`;
 
   const downloadMeme = () => {
-    if (top && bottom && template) {
+    if (template || top || bottom) {
+      setMemeUrl(
+        `https://api.memegen.link/images/${template}/${top}/${bottom}.png`,
+        console.log('all'),
+      );
+    } else if (template && top) {
+      setMemeUrl(`https://api.memegen.link/images/${template}/${top}.png`);
+      console.log('template & top');
+    } else if (template && bottom) {
       setMemeUrl(
         `https://api.memegen.link/images/${template}/${top}/${bottom}.png`,
       );
-    } else if (top && template) {
-      setMemeUrl(`https://api.memegen.link/images/${template}/${top}/.png`);
-    } else if (bottom && template) {
-      setMemeUrl(`https://api.memegen.link/images/${template}/${bottom}.png`);
+      console.log('template &  bottom');
+    } else if (template) {
+      setMemeUrl(`https://api.memegen.link/images/${template}.png`);
+      console.log('template only');
     } else {
-      setMemeUrl(`https://api.memegen.link/images/${template}`);
+      setMemeUrl(`https://api.memegen.link/images`);
+      console.log('none');
     }
     console.log(memeUrl);
   };
@@ -39,17 +48,12 @@ export function App() {
         <label>
           Meme template
           <input
+            value={template}
             onChange={(event) => {
-              setTemplate(event.currentTarget.value);
               setMemeUrl(
-                `https://api.memegen.link/images/${template}/${event.currentTarget.value}/.png`,
+                `https://api.memegen.link/images/${event.currentTarget.value}.png`,
               );
-            }}
-            enter={(e) => {
-              if (e.key === '') {
-                e.preventDefault();
-                downloadMeme(e.targe.value);
-              }
+              setTemplate(event.currentTarget.value);
             }}
           />
         </label>
@@ -75,23 +79,25 @@ export function App() {
             value={bottom}
             onChange={(event) => {
               setMemeUrl(
-                `https://api.memegen.link/images/${template}/${top}/${event.currentTarget.value}.png,`,
+                `https://api.memegen.link/images/${template}/${top}/${event.currentTarget.value}.png`,
               );
               setBottom(event.currentTarget.value);
             }}
           />
         </label>
       </div>
+
       <div>
-        <img data-test-id="meme-image" src={url} alt="generated-meme" />
-      </div>
-      <div>
-        <button onClick={() => setMemeUrl(download)}>Generate</button>
+        <div>
+          <button data-test-id="generate-meme" onClick={downloadMeme}>
+            Generate
+          </button>
+          <img data-test-id="meme-image" src={memeUrl} alt="generated-meme" />
+        </div>
+
         <button
           onClick={() => {
-            // console.log(download);
             setMemeUrl(download);
-
             saveAs(download, 'meme.jpg');
           }}
         >
