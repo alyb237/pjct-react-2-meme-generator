@@ -44,6 +44,7 @@ export function App() {
 
   return (
     <div className="App">
+      React Meme Generator
       <div>
         <label>
           Meme template
@@ -86,7 +87,6 @@ export function App() {
           />
         </label>
       </div>
-
       <div>
         <div>
           <button data-test-id="generate-meme" onClick={downloadMeme}>
