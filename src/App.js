@@ -34,7 +34,7 @@ const buttonPosition = css`
 
 export function App() {
   // displays first image on site and passes the link to the useState
-  const url = 'https://api.memegen.link/images/aag.png';
+  const url = 'https://api.memegen.link/images/fine.png';
 
   const [memeUrl, setMemeUrl] = useState(url);
   const [top, setTop] = useState('');
@@ -60,6 +60,8 @@ export function App() {
     } else if (template) {
       setMemeUrl(`https://api.memegen.link/images/${template}.png`);
       console.log('template only');
+    } else if (top && bottom) {
+      setMemeUrl(`https://api.memegen.link/images//${top}/${bottom}.png`);
     } else {
       setMemeUrl(`https://api.memegen.link/images`);
       console.log('none');
