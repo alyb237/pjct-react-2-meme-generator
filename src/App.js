@@ -1,11 +1,48 @@
+/** @jsxImportSource @emotion/react */
+import './App.css';
+import { css } from '@emotion/react';
 import { saveAs } from 'file-saver';
 import React, { useState } from 'react';
 
+// const Button = styled.button`
+//   color: pink;
+//   border-radius: 25px;
+//   border-color: pink;
+// `;
+
+const buttonStyle = css`
+  color: black;
+  border-radius: 10px;
+  border-color: pink;
+  background-color: beige;
+  /* width: 70px;
+  height: 30px;
+  margin: 10px; */
+  font-family: sans-serif;
+  font-size: 20px;
+  padding: 15px;
+`;
+
+const imgStyle = css`
+  height: 300px;
+  width: 300px;
+  //display: flex;
+`;
+
+const buttonPosition = css`
+  display: flex;
+  border-radius: 8px;
+  font-size: 15px;
+  justify-content: center;
+  gap: 20px;
+  padding: 5px 10px 5px 10px;
+`;
+
+const labelStyle = css``;
+
 // test URL by putting directly into useState and then returning it to the browser
 // create useState variables to change the top and bottom text and template
-
-// generate button does not generate meme
-// entering doge and pressing enter does not work
+// set condition for states if not all input boxes are used
 
 export function App() {
   // displays first image on site and passes the link to the useState
@@ -44,10 +81,12 @@ export function App() {
 
   return (
     <div className="App">
-      React Meme Generator
+      <h3>React Meme Generator</h3>
+
       <div>
         <label>
           Meme template
+          <br />
           <input
             value={template}
             onChange={(event) => {
@@ -62,6 +101,7 @@ export function App() {
       <div>
         <label>
           Top text
+          <br />
           <input
             value={top}
             onChange={(event) => {
@@ -76,6 +116,7 @@ export function App() {
       <div>
         <label>
           Bottom text
+          <br />
           <input
             value={bottom}
             onChange={(event) => {
@@ -87,15 +128,26 @@ export function App() {
           />
         </label>
       </div>
-      <div>
+      <br />
+      <img
+        css={imgStyle}
+        data-test-id="meme-image"
+        src={memeUrl}
+        alt="generated-meme"
+      />
+      <div css={buttonPosition}>
         <div>
-          <button data-test-id="generate-meme" onClick={downloadMeme}>
+          <button
+            css={buttonStyle}
+            data-test-id="generate-meme"
+            onClick={downloadMeme}
+          >
             Generate
           </button>
-          <img data-test-id="meme-image" src={memeUrl} alt="generated-meme" />
         </div>
 
         <button
+          css={buttonStyle}
           onClick={() => {
             setMemeUrl(download);
             saveAs(download, 'meme.jpg');
