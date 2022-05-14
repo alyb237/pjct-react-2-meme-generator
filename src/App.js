@@ -4,20 +4,11 @@ import { css } from '@emotion/react';
 import { saveAs } from 'file-saver';
 import React, { useState } from 'react';
 
-// const Button = styled.button`
-//   color: pink;
-//   border-radius: 25px;
-//   border-color: pink;
-// `;
-
 const buttonStyle = css`
   color: black;
   border-radius: 10px;
   border-color: pink;
   background-color: beige;
-  /* width: 70px;
-  height: 30px;
-  margin: 10px; */
   font-family: sans-serif;
   font-size: 20px;
   padding: 15px;
@@ -26,7 +17,6 @@ const buttonStyle = css`
 const imgStyle = css`
   height: 300px;
   width: 300px;
-  //display: flex;
 `;
 
 const buttonPosition = css`
@@ -37,8 +27,6 @@ const buttonPosition = css`
   gap: 20px;
   padding: 5px 10px 5px 10px;
 `;
-
-const labelStyle = css``;
 
 // test URL by putting directly into useState and then returning it to the browser
 // create useState variables to change the top and bottom text and template
